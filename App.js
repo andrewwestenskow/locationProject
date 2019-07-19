@@ -1,12 +1,19 @@
-import React from 'react'
-import {View, Text, StyleSheet} from 'react-native'
+import React, {Component} from 'react'
+import { View, Text, StyleSheet, PermissionsAndroid } from 'react-native'
 import Location from './Components/Location'
+import Photos from './Components/Photos'
 
 
-const App = (props) => {
-return(
-  <Location/>
-)
+class App extends Component {
+
+  render() {
+    return (
+      <>
+        <Location />
+        <Photos />
+      </>
+    )
+  }
 }
 export default App
 

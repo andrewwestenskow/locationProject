@@ -4,28 +4,17 @@ import Geolocation from 'react-native-geolocation-service'
 
 class Location extends Component {
 
-  async componentDidMount(){
-    try {
-      const granted = await PermissionsAndroid.request(
-        PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
-        {
-          'title': 'Example App',
-          'message': 'Example App access to your location '
-        }
-      )
-      if (granted === PermissionsAndroid.RESULTS.GRANTED) {
-        console.log("You can use the location")
-      } else {
-        console.log("location permission denied")
-        alert("Location permission denied");
-      }
-    } catch (err) {
-      console.warn(err)
-    }
+  state = {
+    latitude: '',
+    longitude: ''
   }
 
   getLocation = () => {
     Geolocation.getCurrentPosition(position => {
+      this.setState({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+      })
       console.log(position)
     })
   }
@@ -34,6 +23,8 @@ class Location extends Component {
     return (
       <View>
         <Button title='get location' onPress={this.getLocation} />
+        <Text>latitude: {this.state.latitude}</Text>
+        <Text>longitude: {this.state.longitude}</Text>
       </View>
     )
   }
