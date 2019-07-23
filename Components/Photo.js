@@ -10,9 +10,17 @@ class Photo extends Component {
   }
 
   select = () => {
+    let action
+    if(!this.state.selected){
+      action = 'add'
+    } else {
+      action = 'remove'
+    }
     this.setState({
       selected: !this.state.selected
     })
+
+    this.props.adjust(this.props.src, action)
   }
 
   render() {

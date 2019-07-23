@@ -2,14 +2,15 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Button, PermissionsAndroid, FlatList, Image } from 'react-native'
 import CameraRoll from "@react-native-community/cameraroll";
 import Photo from './Photo'
-
-
+import SelectedPhoto from './SelectedPhoto'
 
 class Photos extends Component {
 
   state = {
     photos: [],
-    first: 50
+    first: 50,
+    selected: [],
+    show: []
   }
 
   async componentDidMount() {
@@ -47,18 +48,48 @@ class Photos extends Component {
     }).catch(err => console.log(err))
   }
 
+  adjustSelected = (photo, action) => {
+    let selected = [...this.state.selected]
+    action === 'add' ? selected.push(photo) : 
+    selected.splice(selected.findIndex(element => element === photo), 1)
+
+    this.setState({
+      selected
+    })
+  }
+
+  confirm = () => {
+    this.setState({
+      show: [...this.state.selected],
+      photos: [],
+      selected: []
+    })
+  }
+
   render() {
     return (
       <View>
+        <FlatList
+        numColumns={3}
+        data={this.state.show}
+        renderItem={(item) => {
+          return (
+            <SelectedPhoto
+            src={item.item} />
+          )
+        }}
+        />
         <Button title='get photos' onPress={this.getPhotos} />
-        <Button title='confirm' />
+        <Button title={this.state.show.length > 0 ? 'Cancel' : 'Confirm'} onPress={this.confirm}/>
         {this.state.photos.length > 0 &&
           <FlatList
             numColumns={3}
             data={this.state.photos}
             renderItem={(item) => {
               return (
-                <Photo src={item.item.node.image.uri} />
+                <Photo 
+                adjust={this.adjustSelected}
+                src={item.item.node.image.uri} />
               )
             }}
           />}
