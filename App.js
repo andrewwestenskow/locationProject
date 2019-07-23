@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { View, Text, StyleSheet, PermissionsAndroid } from 'react-native'
+import { View, Text, StyleSheet } from 'react-native'
 import Location from './Components/Location'
 import Photos from './Components/Photos'
 

@@ -178,6 +178,7 @@ android {
     }
 
     packagingOptions {
+        pickFirst '**/libjsc.so'
         pickFirst '**/armeabi-v7a/libc++_shared.so'
         pickFirst '**/x86/libc++_shared.so'
         pickFirst '**/arm64-v8a/libc++_shared.so'
@@ -190,7 +191,6 @@ android {
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation project(':react-native-geolocation-service')
 
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";

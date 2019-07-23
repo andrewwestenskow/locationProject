@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, CameraRoll, Button, PermissionsAndroid, FlatList, Image } from 'react-native'
+import { View, Text, StyleSheet, Button, PermissionsAndroid, FlatList, Image } from 'react-native'
+import CameraRoll from "@react-native-community/cameraroll";
+import Photo from './Photo'
 
 
 
 class Photos extends Component {
 
   state = {
-    photos: []
+    photos: [],
+    first: 50
   }
 
   async componentDidMount() {
@@ -33,9 +36,8 @@ class Photos extends Component {
 
   getPhotos = () => {
     const options = {
-      first: 5,
+      first: this.state.first,
       assetType: 'Photos',
-
     }
     CameraRoll.getPhotos(options).then(photos => {
       console.log(photos)
@@ -49,13 +51,14 @@ class Photos extends Component {
     return (
       <View>
         <Button title='get photos' onPress={this.getPhotos} />
+        <Button title='confirm' />
         {this.state.photos.length > 0 &&
           <FlatList
+            numColumns={3}
             data={this.state.photos}
             renderItem={(item) => {
-              console.log(item)
               return (
-                <Image style={{height: 50, width: 50}} source={{ uri: item.item.node.image.uri }} />
+                <Photo src={item.item.node.image.uri} />
               )
             }}
           />}

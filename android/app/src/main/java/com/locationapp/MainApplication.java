@@ -13,7 +13,6 @@ import com.facebook.soloader.SoLoader;
 
 import java.util.List;
 
-import com.agontuk.RNFusedLocation.RNFusedLocationPackage;
 
 public class MainApplication extends Application implements ReactApplication {
 

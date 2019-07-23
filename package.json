@@ -8,6 +8,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/cameraroll": "^1.1.1",
     "react": "16.8.6",
     "react-native": "0.60.4",
     "react-native-geolocation-service": "github:Agontuk/react-native-geolocation-service#rn60-fix"
